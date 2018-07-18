@@ -35,6 +35,22 @@
         </dependency>
     </dependencies>
 
+    <!-- 配置maven的language level -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <configuration>
+                    <!-- jdk version -->
+                    <source>10.0</source>
+                    <target>10,0</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <!-- 配置模块依赖 -->
     <modules>
         <module>api</module>
@@ -42,6 +58,7 @@
         <module>dao</module>
         <module>io</module>
         <module>newfeaturetest</module>
+        <module>other</module>
     </modules>
 
 

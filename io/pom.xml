@@ -11,6 +11,22 @@
 
     <artifactId>io</artifactId>
 
+    <!-- 配置maven的language level -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <configuration>
+                    <!-- jdk version -->
+                    <source>10.0</source>
+                    <target>10,0</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <!-- 配置该模块的依赖 -->
     <modules>
         <module>../api</module>

@@ -21,7 +21,7 @@ public interface IntTest {
     /*
     默认方法
      */
-    default  void defaultInterfaceMethod(){
+    default void defaultInterfaceMethod(){
         init();
     };
 
