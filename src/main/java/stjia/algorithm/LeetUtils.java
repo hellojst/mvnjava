@@ -1,9 +1,13 @@
 package stjia.algorithm;
 
 import jdk.nashorn.api.tree.IfTree;
+import jdk.nashorn.api.tree.Tree;
 
+import javax.swing.tree.TreeNode;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class LeetUtils {
 
@@ -97,17 +101,59 @@ public class LeetUtils {
      *
      */
     // Encodes a tree to a single string.
-//    public String serialize(TreeNode root) {
-//
-//    }
-//
-//    /**
-//     * 反序列化
-//     */
-//    // Decodes your encoded data to tree.
-//    public TreeNode deserialize(String data) {
-//
-//    }
+    public static String serialize(TreeNode root) {
+        if (root == null) return "";
+        StringBuilder sb= new StringBuilder();
+        pre(root, sb);
+        sb.deleteCharAt(sb.length() - 1);
+        return sb.toString();
+    }
+
+    /**
+     * 通过先序遍历输出
+     * @param node
+     * @param sb
+     */
+    private static void pre(TreeNode node, StringBuilder sb){
+        if (node == null){
+            sb.append("#" + ",");
+            return;
+        }
+        sb.append(node.val + ",");
+        pre(node.left, sb);
+        pre(node.right, sb);
+    }
+
+    /**
+     * 反序列化 递归反序列化
+     * @param data
+     */
+    // Decodes your encoded data to tree.
+    public TreeNode deserialize(String data) {
+        if (data.isEmpty()) return null;
+        String[] strs = data.split(",");
+        Queue<String> queue = new LinkedList<>();
+        for (String str : strs){
+            queue.offer(str);
+        }
+        return preOrder(queue);
+    }
+
+    /**
+     * 递归创建树（先序）
+     * @param queue
+     * @return
+     */
+    private static TreeNode preOrder(Queue<String> queue){
+           String val = queue.poll();
+           if (val.equals("#")){
+               return null;
+           }
+           TreeNode node = new TreeNode(Integer.parseInt(val));
+           node.left = preOrder(queue);
+           node.right = preOrder(queue);
+           return node;
+    }
 
     /**
      * 回溯算法
@@ -175,7 +221,7 @@ public class LeetUtils {
         }
     }
 
-    private class TreeNode {
+    static class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;
