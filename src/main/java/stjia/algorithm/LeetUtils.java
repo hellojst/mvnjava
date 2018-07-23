@@ -137,7 +137,7 @@ public class LeetUtils {
 
     /**
      * 递归创建树（先序）
-     *
+     * 单词搜索
      * @param queue
      * @return
      */
@@ -205,6 +205,62 @@ public class LeetUtils {
         //用完，回溯时将未占用的恢复
         isUsed[i][j] = false;
         return result;
+    }
+
+    /**
+     * 回溯算法
+     * 回溯+递归
+     * 电话号码的字母组合
+     * @param digits 输入数字
+     * @return 结果
+     */
+    public static  List<String> letterCombinations(String digits) {
+        //特殊条件判断
+        if(digits == null || digits.isEmpty()){
+            return new ArrayList<>();
+        }
+        //以数组下标为按键数字对应起来
+        String[] dict = new String[]{" ", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        List<String> result = new ArrayList<>();
+        backTracking(digits, 0, new StringBuilder(), dict, result);
+        return result;
+    }
+
+    /**
+     * 递归回溯
+     * 这道题理解成两个层次的遍历，一是给定输入字符串的遍历（如“23”），我们可以理解成进入到更深一层；
+     * 二是对每一个字符所对应的字母的遍历（如“2”对应的“abc”）。
+     * 因此思路就是先遍历到最深层，再层层返回，遍历同层次字符
+     *        2          3
+     *      / | \     / | \
+     *     a  b  c   d  e  f
+     *     先遍历2,3 再遍历到abc，abc为最深一层遍历完即可返回至上一层
+     * @param digits 输入的数字
+     * @param index 深度/层次  即输入字符串的长度
+     * @param temp 临时变量，存储每层的值连成完整的组合值
+     * @param dict 映射关系
+     * @param result 结果集
+     */
+    private static void backTracking(String digits, int index, StringBuilder temp, String[] dict, List<String> result){
+        //到最深层次 即遍历完digits即可取出完整的一个组合项，完成就返回向上回溯
+        if (index >= digits.length()) {
+            result.add(temp.toString());
+            return;
+        }
+        //该层次的字符对应的值
+        int num = digits.charAt(index) - '0';
+        //该值对应的映射字符串
+        String context = dict[num];
+
+        //深度递归
+        for (int i = 0; i < context.length(); i++) {
+            //拼接该层字符
+            temp.append(context.charAt(i));
+            backTracking(digits, index + 1, temp, dict, result);
+            //**用完回溯时将临时变量恢复，
+            temp.deleteCharAt(index);
+        }
+
     }
 
     /**
