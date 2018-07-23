@@ -23,6 +23,10 @@ public class MyMain {
         char[][] chars = new char[][]{{'a','b','c', 'e'},{'s','f','e','s'},{'a','d','e','e'}};
         boolean istrue = LeetUtils.exist(chars, "abceseeefs");
         System.out.println(istrue);
+
+        int[][] ints = new int[][]{{0,1,2,0},{3,4,5,2},{1,3,1,5}};
+        LeetUtils.setZeroes(ints);
+        printArray(ints);
     }
 
     private static void printListNode(ListNode node){
@@ -33,6 +37,21 @@ public class MyMain {
             System.out.print(node.val);
         }
         System.out.print("]");
+    }
+
+    private static void printArray(int[][] ints){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("[");
+        for (int i = 0 ; i < ints.length; i++) {
+            stringBuilder.append("[");
+            for (int j = 0; j < ints[0].length; j++) {
+                stringBuilder.append(ints[i][j] + ",");
+            }
+            stringBuilder.append("]");
+            stringBuilder.append(";");
+        }
+        stringBuilder.append("]");
+        System.out.println(stringBuilder.toString());
     }
 }
 
