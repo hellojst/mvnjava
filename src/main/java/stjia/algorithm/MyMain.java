@@ -20,16 +20,18 @@ public class MyMain {
 //        ListNode result = LeetUtils.addTwoNumbers(l1, l4);
 //        printListNode(result);
 
-        char[][] chars = new char[][]{{'a','b','c', 'e'},{'s','f','e','s'},{'a','d','e','e'}};
-        boolean istrue = LeetUtils.exist(chars, "abceseeefs");
-        System.out.println(istrue);
+//        char[][] chars = new char[][]{{'a','b','c', 'e'},{'s','f','e','s'},{'a','d','e','e'}};
+//        boolean istrue = LeetUtils.exist(chars, "abceseeefs");
+//        System.out.println(istrue);
+//
+//        int[][] ints = new int[][]{{0,1,2,0},{3,4,5,2},{1,3,1,5}};
+//        LeetUtils.setZeroes(ints);
+//        printArray(ints);
 
-        int[][] ints = new int[][]{{0,1,2,0},{3,4,5,2},{1,3,1,5}};
-        LeetUtils.setZeroes(ints);
-        printArray(ints);
+         LeetUtils.solveNQueens(4);
     }
 
-    private static void printListNode(ListNode node){
+    private static void printListNode(ListNode node) {
         System.out.print("[");
         if (node != null) System.out.print(node.val);
         while (node.next != null) {
@@ -39,10 +41,10 @@ public class MyMain {
         System.out.print("]");
     }
 
-    private static void printArray(int[][] ints){
+    private static void printArray(int[][] ints) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("[");
-        for (int i = 0 ; i < ints.length; i++) {
+        for (int i = 0; i < ints.length; i++) {
             stringBuilder.append("[");
             for (int j = 0; j < ints[0].length; j++) {
                 stringBuilder.append(ints[i][j] + ",");
@@ -52,6 +54,18 @@ public class MyMain {
         }
         stringBuilder.append("]");
         System.out.println(stringBuilder.toString());
+    }
+
+    private static void printArray(int[] ints) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for (int i = 0; i < ints.length; i++) {
+            if (i != 0) {
+                sb.append(",");
+            }
+            sb.append(i);
+        }
+        System.out.println(sb.toString());
     }
 }
 

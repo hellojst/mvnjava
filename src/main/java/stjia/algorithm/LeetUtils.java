@@ -138,6 +138,7 @@ public class LeetUtils {
     /**
      * 递归创建树（先序）
      * 单词搜索
+     *
      * @param queue
      * @return
      */
@@ -151,6 +152,8 @@ public class LeetUtils {
         node.right = preOrder(queue);
         return node;
     }
+
+    ///////----------------------------------回溯算法 ------------------------------------------------------////////
 
     /**
      * 回溯算法
@@ -211,12 +214,13 @@ public class LeetUtils {
      * 回溯算法
      * 回溯+递归
      * 电话号码的字母组合
+     *
      * @param digits 输入数字
      * @return 结果
      */
-    public static  List<String> letterCombinations(String digits) {
+    public static List<String> letterCombinations(String digits) {
         //特殊条件判断
-        if(digits == null || digits.isEmpty()){
+        if (digits == null || digits.isEmpty()) {
             return new ArrayList<>();
         }
         //以数组下标为按键数字对应起来
@@ -231,17 +235,18 @@ public class LeetUtils {
      * 这道题理解成两个层次的遍历，一是给定输入字符串的遍历（如“23”），我们可以理解成进入到更深一层；
      * 二是对每一个字符所对应的字母的遍历（如“2”对应的“abc”）。
      * 因此思路就是先遍历到最深层，再层层返回，遍历同层次字符
-     *        2          3
-     *      / | \     / | \
-     *     a  b  c   d  e  f
-     *     先遍历2,3 再遍历到abc，abc为最深一层遍历完即可返回至上一层
+     * 2          3
+     * / | \     / | \
+     * a  b  c   d  e  f
+     * 先遍历2,3 再遍历到abc，abc为最深一层遍历完即可返回至上一层
+     *
      * @param digits 输入的数字
-     * @param index 深度/层次  即输入字符串的长度
-     * @param temp 临时变量，存储每层的值连成完整的组合值
-     * @param dict 映射关系
+     * @param index  深度/层次  即输入字符串的长度
+     * @param temp   临时变量，存储每层的值连成完整的组合值
+     * @param dict   映射关系
      * @param result 结果集
      */
-    private static void backTracking(String digits, int index, StringBuilder temp, String[] dict, List<String> result){
+    private static void backTracking(String digits, int index, StringBuilder temp, String[] dict, List<String> result) {
         //到最深层次 即遍历完digits即可取出完整的一个组合项，完成就返回向上回溯
         if (index >= digits.length()) {
             result.add(temp.toString());
@@ -262,6 +267,72 @@ public class LeetUtils {
         }
 
     }
+
+
+    /**
+     * n 皇后问题
+     * @param n
+     * @return
+     */
+    public static List<List<String>> solveNQueens(int n) {
+        List<List<Integer>> results = queue(n);
+        List<List<String>> output = new ArrayList<>();
+        for (List<Integer> ints : results) {
+            List<String> oneCompose = new ArrayList<>();
+            for (Integer num : ints) {
+                StringBuilder stringBuilder = new StringBuilder();
+                for (int i = 0; i < n; i++) {
+                    if (i == num) {
+                        stringBuilder.append("Q");
+                    } else {
+                        stringBuilder.append(".");
+                    }
+                }
+                oneCompose.add(stringBuilder.toString());
+            }
+            output.add(oneCompose);
+        }
+        return output;
+    }
+
+    /**
+     * n 皇后问题
+     *
+     * @param n 皇后个数
+     */
+    public static List<List<Integer>> queue(int n) {
+        boolean[] x = new boolean[n];
+        boolean[] xy = new boolean[2 * n - 1];
+        boolean[] yx = new boolean[2 * n - 1];
+        List<Integer> result = new ArrayList<>();
+        List<List<Integer>> results = new ArrayList<>();
+        validateQueue(0, x, xy, yx, n, result, results);
+        return results;
+    }
+
+    private static void validateQueue(int y, boolean[] x, boolean[] xy, boolean[] yx, int n, List<Integer> result, List<List<Integer>> results) {
+        if (y >= n) {
+            results.add(new ArrayList<>(result));
+            return;
+        }
+
+        for (int i = 0; i < n; i++) {
+            if (!x[i] && !xy[i + y] && !yx[i - y + n - 1]) {
+                result.add(y, i);
+                x[i] = true;
+                xy[i + y] = true;
+                yx[i - y + n - 1] = true;
+                validateQueue(y + 1, x, xy, yx, n, result, results);
+                result.remove(y);
+                x[i] = false;
+                xy[i + y] = false;
+                yx[i - y + n - 1] = false;
+            }
+        }
+    }
+
+    //////// ---------------------------------------------回溯算法----------------------------------------------///////////
+
 
     /**
      * excle 表头与数字的对应关系  A--Z: 1--26 26禁止从1开始
